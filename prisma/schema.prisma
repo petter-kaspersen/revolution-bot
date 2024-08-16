@@ -1,0 +1,24 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  discordId String @id
+  username String
+
+  points   Float @default(0)
+  treats   Int @default(0)
+
+  revolutionStreak Int @default(0)
+
+  lastRevolted  DateTime?
+  lastTreated   DateTime?
+}
