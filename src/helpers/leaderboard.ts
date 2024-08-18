@@ -9,8 +9,8 @@ const padNameTo = (name: string, length: number) => {
   if (name.length >= length) {
     return name;
   }
-  
-  return name + "!".repeat(length - name.length);
+
+  return name + " ".repeat(length - name.length + 1);
 };
 
 export class Leaderboard extends Helper {
