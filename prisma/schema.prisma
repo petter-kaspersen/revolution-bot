@@ -22,4 +22,5 @@ model user {
 
   lastRevolted  DateTime?
   lastTreated   DateTime?
+  lastGivenTreat DateTime?
 }
