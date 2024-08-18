@@ -50,7 +50,7 @@ export class Leaderboard extends Helper {
 
     const fields = sortedUsers
       .map(
-        (user, i) => `#${i + 1}        ${user.username}        ${user.points}`
+        (user, i) => `#${i + 1}\t\t${user.username}\t\t${user.points}`
       )
       .join("\n");
 
