@@ -1,6 +1,7 @@
 import { Client, Message } from "discord.js";
 import Command from "./command";
 import prisma from "../db";
+import { Cache } from "../cache";
 
 export class CommandRevolution extends Command {
   constructor(bot: Client) {

@@ -6,6 +6,10 @@ import Command from "./commands/command";
 import { CommandTreat } from "./commands/treat";
 import { CommandRevolution } from "./commands/revolution";
 import { CommandPet } from "./commands/pet";
+import { Helper } from "./helpers/helper";
+import { Leaderboard } from "./helpers/leaderboard";
+
+import { Cache } from "./cache";
 
 class Bot {
   private client: Client = new Client({
@@ -20,8 +24,10 @@ class Bot {
   });
 
   private commands: Command[] = this.registerCommands();
+  private helpers: Helper[] = this.registerHelpers();
   constructor() {
     this.addListeners();
+    new Cache();
   }
 
   addListeners() {
@@ -30,10 +36,16 @@ class Bot {
     });
   }
 
-  addHelpers() {}
+  registerHelpers() {
+    return [new Leaderboard(this.client)];
+  }
 
   registerCommands() {
-    return [new CommandTreat(this.client), new CommandRevolution(this.client), new CommandPet(this.client)];
+    return [
+      new CommandTreat(this.client),
+      new CommandRevolution(this.client),
+      new CommandPet(this.client),
+    ];
   }
 
   start() {
