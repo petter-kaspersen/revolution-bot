@@ -15,16 +15,23 @@ export class CommandRevolution extends Command {
       },
     });
 
-    let multiplier = (10 + user.treats + user.revolutionStreak) / 10;
+    let multiplier = 1;
+    let base;
 
-    const base = Math.floor(Math.random() * 10) + 1;
+    if (user.givenTreats) {
+      base = Math.floor(Math.random() * 6) + 5;
+      multiplier = 5;
+    } else {
+      base = Math.floor(Math.random() * 10) + 1;
+    }
+
     const points = Math.round(base * multiplier);
 
-    let risk = (100 - (5 + user.revolutionStreak)) / 100;
+    let risk = (100 - 5 * user.revolutionStreak) / 100;
 
     const failed = Math.random() > risk;
 
-    if (failed) {
+    if (failed && !user.givenTreats) {
       const newUser = await prisma.user.update({
         where: {
           discordId: message.author.id,
@@ -52,6 +59,7 @@ export class CommandRevolution extends Command {
         revolutionStreak: {
           increment: 1,
         },
+        givenTreats: false,
       },
     });
 

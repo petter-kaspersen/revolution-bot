@@ -36,6 +36,7 @@ export class CommandTreat extends Command {
         },
         lastTreated: new Date(),
         revolutionStreak: 0,
+        givenTreats: true,
       },
     });
 
