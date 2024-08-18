@@ -5,6 +5,14 @@ import { Cache } from "../cache";
 import { user } from "@prisma/client";
 import prisma from "../db";
 
+const padNameTo = (name: string, length: number) => {
+  if (name.length >= length) {
+    return name;
+  }
+  
+  return name + "!".repeat(length - name.length);
+};
+
 export class Leaderboard extends Helper {
   constructor(bot: Client) {
     super(bot);
@@ -48,9 +56,18 @@ export class Leaderboard extends Helper {
   constructEmbed(users: user[]) {
     const sortedUsers = users.sort((a, b) => b.points - a.points);
 
+    const longestUsername = sortedUsers.reduce(
+      (acc, user) =>
+        [...user.username].length > acc ? [...user.username].length : acc,
+      0
+    );
+
     const fields = sortedUsers
       .map(
-        (user, i) => `#${i + 1}\t\t${user.username}\t\t${user.points}`
+        (user, i) =>
+          `#${i + 1}\t\t${padNameTo(user.username, longestUsername)}\t\t${
+            user.points
+          }`
       )
       .join("\n");
 
