@@ -29,7 +29,7 @@ export class Minecraft extends Helper {
   async init() {
     this.updateMinecraft();
 
-    setInterval(this.updateMinecraft.bind(this), 1000 * 60);
+    setInterval(this.updateMinecraft.bind(this), 1000 * 60 * 5);
   }
 
   async updateMinecraft() {
