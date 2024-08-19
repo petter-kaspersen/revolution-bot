@@ -10,6 +10,7 @@ import { Helper } from "./helpers/helper";
 import { Leaderboard } from "./helpers/leaderboard";
 
 import { Cache } from "./cache";
+import { Minecraft } from "./helpers/minecraft";
 
 class Bot {
   private client: Client = new Client({
@@ -37,7 +38,7 @@ class Bot {
   }
 
   registerHelpers() {
-    return [new Leaderboard(this.client)];
+    return [new Leaderboard(this.client), new Minecraft(this.client)];
   }
 
   registerCommands() {
