@@ -60,10 +60,14 @@ export class Minecraft extends Helper {
   }
 
   constructEmbed(players: MinecraftPlayers, status: MinecraftStatus) {
+    const date = new Date();
+    const options = { timeZone: "Europe/Berlin", hour12: false };
+    const CESTDate = date.toLocaleString("en-GB", options);
+
     return new EmbedBuilder()
       .setColor(status.status.online ? "#008000" : "#FF0000")
       .setTitle("Minecraft Server Status")
-      .setDescription(`Last updated: ${new Date().toLocaleString("en-GB")}`)
+      .setDescription(`Last updated: ${CESTDate}`)
       .addFields({
         name: "Online",
         value: status.status.online ? ":green_circle:" : ":red_circle:",
@@ -82,11 +86,13 @@ export class Minecraft extends Helper {
       .addFields({
         name: "Online Players",
         value: players.players.join(", ") || "No players online",
-      })
+      });
   }
 
   async getMinecraftChannel() {
-    return this.bot.channels.cache.get(config.minecraft.minecraftChannel) as TextChannel;
+    return this.bot.channels.cache.get(
+      config.minecraft.minecraftChannel
+    ) as TextChannel;
   }
 
   async getServerStatus() {
