@@ -86,7 +86,7 @@ export class Minecraft extends Helper {
   }
 
   async getMinecraftChannel() {
-    return this.bot.channels.cache.get(config.embedChannel) as TextChannel;
+    return this.bot.channels.cache.get(config.minecraft.minecraftChannel) as TextChannel;
   }
 
   async getServerStatus() {

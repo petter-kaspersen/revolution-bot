@@ -47,7 +47,7 @@ export class Leaderboard extends Helper {
   }
 
   async getLeaderboardChannel() {
-    return this.bot.channels.cache.get(config.embedChannel) as TextChannel;
+    return this.bot.channels.cache.get(config.leaderboardChannel) as TextChannel;
   }
 
   constructEmbed(users: user[]) {
