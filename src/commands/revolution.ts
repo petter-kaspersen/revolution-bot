@@ -15,6 +15,15 @@ export class CommandRevolution extends Command {
       },
     });
 
+    // If last revolution is less than 5 seconds ago, add a multiplier to fail
+    let lastRevolted = user.lastRevolted;
+
+    let failMultiplier = 1;
+
+    if (lastRevolted && lastRevolted.getTime() > Date.now() - 5000) {
+      failMultiplier = 1.5;
+    }
+
     let multiplier = 1;
     let base;
 
@@ -27,7 +36,7 @@ export class CommandRevolution extends Command {
 
     const points = Math.round(base * multiplier);
 
-    let risk = (100 - 5 * user.revolutionStreak) / 100;
+    let risk = (100 - 5 * user.revolutionStreak * failMultiplier) / 100;
 
     const failed = Math.random() > risk;
 
@@ -40,6 +49,7 @@ export class CommandRevolution extends Command {
           points: {
             decrement: points,
           },
+          lastRevolted: new Date(),
         },
       });
 
@@ -60,6 +70,7 @@ export class CommandRevolution extends Command {
           increment: 1,
         },
         givenTreats: false,
+        lastRevolted: new Date(),
       },
     });
 
