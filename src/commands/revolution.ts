@@ -21,7 +21,7 @@ export class CommandRevolution extends Command {
     let failMultiplier = 1;
 
     if (lastRevolted && lastRevolted.getTime() > Date.now() - 5000) {
-      failMultiplier = 1.5;
+      failMultiplier = 2;
     }
 
     let multiplier = 1;
